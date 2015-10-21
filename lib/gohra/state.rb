@@ -89,13 +89,20 @@ class State
     @value[index]
   end
 
+  def count
+    @value.count
+  end
+
   def <<(state)
     raise "don't allowed except size is any. #{self}" unless @size == :any
     @value << state
   end
 
   def select(indexes)
-    choice = indexes.map { |i| @value[i] }
+    choice = indexes.map {|i| @value[i] }
+    if block_given?
+      return nil unless yield choice
+    end
     @value -= choice
     choice
   end

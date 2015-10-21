@@ -11,7 +11,20 @@ users do
 
   turn do |user|
     user.pass = false
-    user.choose(:hand, 1..4) || user.pass = true
+    choice = user.choose(:hand, 1..4) {|cards|
+      puts "choice: #{cards}"
+      puts "field_cards: #{field_cards}"
+      message = validate_user_choice(user, cards)
+      if message
+        puts message
+        false
+      else
+        true
+      end
+    }
+
+    user.pass = true unless choice
+    choice
   end
 
   rule(:is_up?) do
@@ -29,6 +42,23 @@ rule(:last_one_user?) do
   users.select(:is_up?).count == (users.count - 1)
 end
 
+rule(:validate_user_choice) do |user, cards|
+  return "not same_number_of" unless same_number_of(cards)
+  return nil if field_cards.count == 0
+  return "not match count" unless field_cards.count == cards.count
+  return "not same_suit_of" unless same_suit_of(cards)
+  return "less than" unless cards[0].number > field_cards[0].number
+  nil
+end
+
+rule(:same_suit_of) do |cards|
+  cards.count > 1 || cards[0].suit == field_cards[0].suit
+end
+
+rule(:same_number_of) do |cards|
+  cards.count == 1 || cards.all? {|c| cards[0].number == c.number }
+end
+
 progression do
   deck.shuffle
   deck.deal(users) do |user, card|
@@ -37,7 +67,11 @@ progression do
 
   turns.cycle do |user|
     skip if user.is_up?
-    user.turn
+    cards = user.turn(self)
+    used << field_cards
+    field_cards.set(cards)
+    puts "turn.cycle: #{user}"
+    p self
     turn_break?(user) do
       end_of_game if last_one_user?
     end

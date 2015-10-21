@@ -6,20 +6,6 @@ class User
     @name = name
   end
 
-  def choose(state_id, range)
-    state = self.state(state_id)
-    p state
-    choice = []
-    range.to_a.each do |i|
-      print "#{i}番目のカード"
-      card = gets.chomp
-      break if card.empty?
-      choice << card.to_i
-    end
-    return nil if choice.empty?
-    state.select(choice)
-  end
-
   def state(id)
     self.singleton_class.instance_method(id).bind(self).call
   end
@@ -53,8 +39,9 @@ class Users < DelegateClass(Array)
       turn = @turn
 
       user.singleton_class.class_eval do
-        define_method :turn do
-          turn.call self
+        define_method :turn do |game|
+          puts "game = #{game}"
+          game.instance_exec(user, &turn)
         end
       end
 
