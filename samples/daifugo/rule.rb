@@ -12,8 +12,6 @@ users do
   turn do |user|
     user.pass = false
     choice = user.choose(:hand, 1..4) {|cards|
-      puts "choice: #{cards}"
-      puts "field_cards: #{field_cards}"
       message = validate_user_choice(user, cards)
       if message
         puts message
@@ -23,7 +21,7 @@ users do
       end
     }
 
-    user.pass = true unless choice
+    user.pass = true if choice.nil?
     choice
   end
 
@@ -69,9 +67,8 @@ progression do
     skip if user.is_up?
     cards = user.turn(self)
     used << field_cards
-    field_cards.set(cards)
-    puts "turn.cycle: #{user}"
-    p self
+    field_cards.value = cards
+    users.notice_all(:update_field, params: {user:user, cards: cards})
     turn_break?(user) do
       end_of_game if last_one_user?
     end

@@ -2,6 +2,7 @@ require 'delegate'
 require_relative 'state'
 require_relative 'rule_builder'
 require_relative 'user'
+require_relative 'card'
 
 class Game
   include StateBuilder
@@ -151,34 +152,6 @@ class Rule < DelegateClass(Game)
   def initialize(game, &block)
     super(game)
     @proc = block
-  end
-end
-
-class Card
-  attr_reader :suit, :number
-
-  def initialize(suit, number)
-    @suit = suit
-    @number = number
-  end
-
-  NAMES_OF_NUMBER = %w(JOKER ACE TWO THREE FOUR FIVE SIX SEVEN EIGHT NINE TEN JACK QUEEN KING)
-
-  REGULAR_CARDS = %i(spade diamond club heart).flat_map do |suit|
-    (1..13).map do |num|
-      const_set(NAMES_OF_NUMBER[num] + "_OF_" + suit.to_s.upcase, Card.new(suit, num))
-    end
-  end
-
-  JOKER = Card.new(:joker, 0)
-
-  def to_s
-    return NAMES_OF_NUMBER[0] if @suit == :joker
-    NAMES_OF_NUMBER[@number] + "_OF_" + suit.to_s.upcase
-  end
-
-  def inspect
-    to_s
   end
 end
 

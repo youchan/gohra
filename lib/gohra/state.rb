@@ -15,7 +15,7 @@ module StateBuilder
           s
         end
         define_method((state.id.to_s + "=").to_sym) do |value|
-          s.set(value)
+          s.value = value
         end
       end
     end
@@ -23,7 +23,8 @@ module StateBuilder
 end
 
 class State
-  attr_reader :id, :type, :value
+  attr_reader :id, :type
+  attr_accessor :value
 
   def initialize(game, id, type, size = 1, init_value = nil)
     @game = game
@@ -75,14 +76,6 @@ class State
           @game.users.cycle(&proc)
       end
     end
-  end
-
-  def set(value)
-    @value = value
-  end
-
-  def get
-    @value
   end
 
   def [](index)

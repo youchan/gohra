@@ -6,11 +6,38 @@ class User
     @name = name
   end
 
-  def state(id)
-    self.singleton_class.instance_method(id).bind(self).call
+  def choose(state_id, range)
+    state = self.state(state_id)
+    wrap_event(:choose, state) do
+      cards = nil
+      while cards.nil?
+        choice = input_choice(state, range)
+        break if choice.empty?
+        if block_given?
+          cards = state.select(choice, &proc)
+        else
+          cards = state.select(choice)
+        end
+      end
+      cards
+    end
   end
 
-  def do(state, turn)
+  def wrap_event(type, params)
+    method("before_#{type.to_s}").call(params) if respond_to? "before_#{type.to_s}"
+    begin
+      result = yield
+    rescue => err
+      method("error_#{type.to_s}").call(err) if respond_to? "error_#{type.to_s}"
+      raise
+    ensure
+      method("after_#{type.to_s}").call(result) if respond_to? "after_#{type.to_s}"
+    end
+    result
+  end
+
+  def state(id)
+    self.singleton_class.instance_method(id).bind(self).call
   end
 end
 
@@ -40,13 +67,11 @@ class Users < DelegateClass(Array)
 
       user.singleton_class.class_eval do
         define_method :turn do |game|
-          puts "game = #{game}"
           game.instance_exec(user, &turn)
         end
       end
 
       @rules.each do |id, proc|
-        puts "define_rule: #{id} user: #{user.name}"
         define_rule(@game, user, id, proc)
       end
     end
@@ -54,5 +79,11 @@ class Users < DelegateClass(Array)
 
   def except(user)
     self.reject {|u| u == user }
+  end
+
+  def notice_all(type, params)
+    self.each do |user|
+      user.notice(type, params)
+    end
   end
 end
