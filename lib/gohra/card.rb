@@ -1,4 +1,6 @@
 class Card
+  include Comparable
+
   attr_reader :suit, :number
 
   def initialize(suit, number)
@@ -23,6 +25,25 @@ class Card
     return NAMES_OF_NUMBER[0] if @suit == :joker
     #NAMES_OF_NUMBER[@number] + "_OF_" + suit.to_s.upcase
     SUIT_CHAR[suit] + NUMBER_CHAR[@number]
+  end
+
+  def <=>(c)
+    Card.index_of(self) - Card.index_of(c)
+  end
+
+  def self.index_of(card)
+    case card.suit
+    when :spade
+      card.number - 1
+    when :diamond
+      card.number + 13 - 1
+    when  :club
+      card.number + 13 * 2 - 1
+    when :heart
+      card.number + 13 * 3 - 1
+    when :joker
+      13 * 4
+    end
   end
 
   def inspect

@@ -6,9 +6,9 @@ module StateBuilder
     state
   end
 
-  def bind_states(obj)
+  def bind_states(mod)
     states = @states || []
-    obj.singleton_class.class_eval do
+    mod.class_eval do
       states.each do |state|
         s = state.clone.init
         define_method(state.id) do
@@ -94,10 +94,19 @@ class State
   def select(indexes)
     choice = indexes.map {|i| @value[i] }
     if block_given?
-      return nil unless yield choice
+      begin
+        yield choice
+      rescue => e
+        p e
+        return nil
+      end
     end
     @value -= choice
     choice
+  end
+
+  def sort
+    @value.sort!
   end
 
   def clone
@@ -105,10 +114,10 @@ class State
   end
 
   def to_s
-    "STATE::#{@id}(#{@type}[#{@size}]) = #{@value.inspect}"
+    @value.inspect
   end
 
   def inspect
-    to_s
+    "STATE::#{@id}(#{@type}[#{@size}]) = #{@value.inspect}"
   end
 end

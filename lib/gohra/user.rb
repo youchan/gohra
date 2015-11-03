@@ -1,5 +1,7 @@
 class User
   include RuleBuilder
+  include GlobalState
+
   attr_reader :states, :name
 
   def initialize(name)
@@ -59,10 +61,15 @@ class Users < DelegateClass(Array)
     @rules[id] = block
   end
 
+  def validation_rule(id, &block)
+    @validation_rules = {} unless @validation_rules
+    @validation_rules[id] = block
+  end
+
   def set(users)
     replace(users)
     self.each do |user|
-      bind_states(user)
+      bind_states(user.singleton_class)
       turn = @turn
 
       user.singleton_class.class_eval do
@@ -71,8 +78,16 @@ class Users < DelegateClass(Array)
         end
       end
 
-      @rules.each do |id, proc|
-        define_rule(@game, user, id, proc)
+      if @rules
+        @rules.each do |id, proc|
+          define_rule(@game, user, id, &proc)
+        end
+      end
+
+      if @validation_rules
+        @validation_rules.each do |id, proc|
+          define_validation_rule(@game, user, id, &proc)
+        end
       end
     end
   end
