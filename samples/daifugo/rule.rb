@@ -56,7 +56,6 @@ users do
 end
 
 rule(:put_user_choice_on_tableau) do |user|
-  puts "put_user_choice_on_tableau"
   used << tableau
   self.tableau = user.choice.value
   users.notice_all(:update_tableau, params: {user:user, cards: user.choice})
