@@ -1,6 +1,6 @@
 require_relative 'slack_interface'
 
-class SlackUser < User
+class SlackPlayer < Player
   def initialize(slack)
     @slack = slack
   end
@@ -29,9 +29,9 @@ class SlackUser < User
     case type
     when :update_tableau
       unless params[:cards].nil?
-        @slack.puts "#{params[:user].name}が#{params[:cards]}を切りました。"
+        @slack.puts "#{params[:player].name}が#{params[:cards]}を切りました。"
       else
-        @slack.puts "#{params[:user].name} がパスしました。"
+        @slack.puts "#{params[:player].name} がパスしました。"
       end
     else
       @slack.puts "なぞのメッセージ: #{type.to_s}"

@@ -7,10 +7,10 @@ class Deck
     @cards.shuffle!
   end
 
-  def deal(users)
-    users.cycle do |user|
+  def deal(players)
+    players.cycle do |player|
       break if @cards.length == 0
-      yield(user, @cards.shift)
+      yield(player, @cards.shift)
     end
   end
 end

@@ -22,12 +22,12 @@ class Game
     @deck = Deck.new(Card::REGULAR_CARDS + (params[:include] || []) - (params[:exclude] || []))
   end
 
-  def users(&block)
-    return @users unless block_given?
+  def players(&block)
+    return @players unless block_given?
 
-    @users = Users.new self
-    @users.instance_eval(&block)
-    @users
+    @players = Players.new self
+    @players.instance_eval(&block)
+    @players
   end
 
   def progression
@@ -44,8 +44,8 @@ class Game
     define_validation_rule(self, self, id, &block)
   end
 
-  def init(users)
-    @users.set users
+  def init(players)
+    @players.set players
     bind_states(GlobalState)
   end
 
@@ -67,6 +67,6 @@ class Game
 end
 
 require_relative 'rule'
-require_relative 'user'
+require_relative 'player'
 require_relative 'card'
 require_relative 'progression'

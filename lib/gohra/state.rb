@@ -72,8 +72,8 @@ class State
       @value.cycle(&proc)
     else
       case @type
-        when :users
-          @game.users.cycle(&proc)
+        when :players
+          @game.players.cycle(&proc)
       end
     end
   end

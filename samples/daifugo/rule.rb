@@ -2,16 +2,16 @@ deck include: joker(2)
 
 state :tableau, :cards, :any
 state :used, :cards, :any
-state :turns, :users
+state :turns, :players
 
-users do
+players do
   state :hand, :cards, :any
   state :choice, :cards, 1..4
   state :up, :number
   state :pass, :flag, 1, false
 
-  turn do |user|
-    user.choose_from_hand
+  turn do |player|
+    player.choose_from_hand
   end
 
   rule(:choose_from_hand) do
@@ -55,18 +55,18 @@ users do
   end
 end
 
-rule(:put_user_choice_on_tableau) do |user|
+rule(:put_player_choice_on_tableau) do |player|
   used << tableau
-  self.tableau = user.choice.value
-  users.notice_all(:update_tableau, params: {user:user, cards: user.choice})
+  self.tableau = player.choice.value
+  players.notice_all(:update_tableau, params: {player:player, cards: player.choice})
 end
 
-rule(:turn_break?) do |user|
-  users.except(user).all? {|u| puts "#{u.name}: #{u.pass.value}"; u.pass.value }
+rule(:turn_break?) do |player|
+  players.except(player).all? {|u| puts "#{u.name}: #{u.pass.value}"; u.pass.value }
 end
 
-rule(:last_one_user?) do
-  users.select(:is_up?).count == (users.count - 1)
+rule(:last_one_player?) do
+  players.select(:is_up?).count == (players.count - 1)
 end
 
 rule(:clear_tableau) do
@@ -75,21 +75,21 @@ end
 
 progression do
   deck.shuffle
-  deck.deal(users) do |user, card|
-    user.hand << card
+  deck.deal(players) do |player, card|
+    player.hand << card
   end
 
-  users.each do |user|
-    user.hand.sort
+  players.each do |player|
+    player.hand.sort
   end
 
-  turns.cycle do |user|
-    skip if user.is_up?
-    user.turn(self)
-    put_user_choice_on_tableau(user)
-    turn_break?(user) do
+  turns.cycle do |player|
+    skip if player.is_up?
+    player.turn(self)
+    put_player_choice_on_tableau(player)
+    turn_break?(player) do
       clear_tableau
-      end_of_game if last_one_user?
+      end_of_game if last_one_player?
     end
   end
 end

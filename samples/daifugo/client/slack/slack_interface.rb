@@ -19,13 +19,13 @@ class SlackInterface
     end
   end
 
-  def users
+  def players
     @channel['members'].map do |id|
-      User.new(@client, @client.users_info(user: id)['user'])
+      Player.new(@client, @client.users_info(user: id)['user'])
     end
   end
 
-  class User
+  class Player
     def initialize(client, user)
       @client = client
       @id = user['id']

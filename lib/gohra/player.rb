@@ -1,4 +1,4 @@
-class User
+class Player
   include RuleBuilder
   include GlobalState
 
@@ -43,7 +43,7 @@ class User
   end
 end
 
-class Users < DelegateClass(Array)
+class Players < DelegateClass(Array)
   include StateBuilder
   include RuleBuilder
 
@@ -66,39 +66,39 @@ class Users < DelegateClass(Array)
     @validation_rules[id] = block
   end
 
-  def set(users)
-    replace(users)
-    self.each do |user|
-      bind_states(user.singleton_class)
+  def set(players)
+    replace(players)
+    self.each do |player|
+      bind_states(player.singleton_class)
       turn = @turn
 
-      user.singleton_class.class_eval do
+      player.singleton_class.class_eval do
         define_method :turn do |game|
-          game.instance_exec(user, &turn)
+          game.instance_exec(player, &turn)
         end
       end
 
       if @rules
         @rules.each do |id, proc|
-          define_rule(@game, user, id, &proc)
+          define_rule(@game, player, id, &proc)
         end
       end
 
       if @validation_rules
         @validation_rules.each do |id, proc|
-          define_validation_rule(@game, user, id, &proc)
+          define_validation_rule(@game, player, id, &proc)
         end
       end
     end
   end
 
-  def except(user)
-    self.reject {|u| u == user }
+  def except(player)
+    self.reject {|u| u == player }
   end
 
   def notice_all(type, params)
-    self.each do |user|
-      user.notice(type, params)
+    self.each do |player|
+      player.notice(type, params)
     end
   end
 end

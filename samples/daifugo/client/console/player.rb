@@ -1,4 +1,4 @@
-class ConsoleUser < User
+class ConsolePlayer < Player
   def input_choice(state, range)
     choice = []
     range.to_a.each do |i|
@@ -22,7 +22,7 @@ class ConsoleUser < User
     case type
     when :update_tableau
       unless params[:cards].nil?
-        puts "[#{@name}] #{params[:user].name}が#{params[:cards]}を切りました。"
+        puts "[#{@name}] #{params[:player].name}が#{params[:cards]}を切りました。"
       else
         puts "[#{@name}] がパスしました。"
       end
