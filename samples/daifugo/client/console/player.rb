@@ -18,25 +18,16 @@ class ConsolePlayer < Player
     puts
   end
 
-  def notice(type, params: {})
-    case type
-    when :update_tableau
-    else
-      puts "[#{@name}] #{type.to_s}"
-    end
-  end
-
-  def handle_validation_error(err, rule)
-    puts "バリデーションエラー： #{rule.name}" unless rule.name == :validation_choice
-  end
-
-  after_rule :put_player_choice_on_tableau do |params|
-    player = params[:args][0]
+  def notify_player_choosed(player)
     unless player.choice.empty?
       puts "[#{@name}] #{player.name}が#{player.choice}を切りました。"
     else
       puts "[#{@name}] #{player.name}がパスしました。"
     end
+  end
+
+  def handle_validation_error(err, rule)
+    puts "バリデーションエラー： #{rule.name}" unless rule.name == :validation_choice
   end
 
   after_rule :turn_break? do |params|

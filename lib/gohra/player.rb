@@ -73,6 +73,10 @@ class Player
   def notify_validation_error(err, rule)
     handle_validation_error(err, rule) if respond_to? :handle_validation_error
   end
+
+  def notify(type, *args)
+    method("notify_#{type}").call(*args) if respond_to? "notify_#{type}"
+  end
 end
 
 class Players < DelegateClass(Array)

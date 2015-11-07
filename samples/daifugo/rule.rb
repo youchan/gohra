@@ -82,6 +82,7 @@ progression do
       end_of_game if last_one_player?
     end
     player.choose_from_hand
+    notify :player_choosed, player
     put_player_choice_on_tableau(player)
   end
 end

@@ -49,6 +49,10 @@ class Game
     players.each {|player| player.notify_after_rule(name, rule, args, result) }
   end
 
+  def notify(type, *args)
+    players.each {|player| player.notify(type, *args) }
+  end
+
   def joker(n)
     Array.new n, Card::JOKER
   end
