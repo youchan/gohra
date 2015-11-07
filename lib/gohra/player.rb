@@ -58,12 +58,12 @@ class Player
     end
   end
 
-  def notify_before_rule(name, rule, *args)
-    method("notify_before_#{name}").call(*args) if respond_to? "notify_before_#{name}"
+  def notify_before_rule(name, rule, args)
+    method("notify_before_#{name}").call(rule: rule, args: args) if respond_to? "notify_before_#{name}"
   end
 
-  def notify_after_rule(name, rule, *args)
-    method("notify_after_#{name}").call(*args) if respond_to? "notify_after_#{name}"
+  def notify_after_rule(name, rule, args, result)
+    method("notify_after_#{name}").call(rule: rule, args: args, result: result) if respond_to? "notify_after_#{name}"
   end
 
   def notify_state_updated(name, state)

@@ -30,11 +30,18 @@ class ConsolePlayer < Player
     puts "バリデーションエラー： #{rule.name}" unless rule.name == :validate_choice
   end
 
-  after_rule :put_player_choice_on_tableau do |player|
+  after_rule :put_player_choice_on_tableau do |params|
+    player = params[:args][0]
     unless player.choice.empty?
       puts "[#{@name}] #{player.name}が#{player.choice}を切りました。"
     else
       puts "[#{@name}] #{player.name}がパスしました。"
+    end
+  end
+
+  after_rule :turn_break? do |params|
+    if params[:result]
+      puts "全員パスしました。場札がクリアされます。"
     end
   end
 end

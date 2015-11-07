@@ -13,7 +13,7 @@ player do
   rule(:choose_from_hand) do
     pass = false
     choice.value = choose(:hand, 1..4) {|cards| validate_choice(cards) }
-    pass = true if choice.nil?
+    self.pass = true if choice.empty?
   end
 
   rule(:is_up?) do
@@ -53,14 +53,15 @@ rule(:put_player_choice_on_tableau) do |player|
 end
 
 rule(:turn_break?) do |player|
-  players.except(player).all? {|u| puts "#{u.name}: #{u.pass.value}"; u.pass.value }
+  players.except(player).all? {|p| p.pass.value }
 end
 
-rule(:last_one_player?) do
-  players.select(:is_up?).count == (players.count - 1)
+rule(:last_one_player?) do |player|
+  players.select(&:is_up?).count == (players.count - 1)
 end
 
 rule(:clear_tableau) do
+  used << tableau
   tableau.clear
 end
 
@@ -75,12 +76,12 @@ progression do
   end
 
   turns.cycle do |player|
-    skip if player.is_up?
-    player.choose_from_hand
-    put_player_choice_on_tableau(player)
-    turn_break?(player) do
+    next if player.is_up?
+    if turn_break?(player)
       clear_tableau
       end_of_game if last_one_player?
     end
+    player.choose_from_hand
+    put_player_choice_on_tableau(player)
   end
 end

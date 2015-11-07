@@ -83,6 +83,7 @@ class State
   end
 
   def count
+    return 0 if @value.nil?
     @value.count
   end
 
@@ -96,7 +97,7 @@ class State
     if block_given?
       begin
         yield choice
-      rescue
+      rescue Rule::ValidateError => e
         return nil
       end
     end
@@ -106,6 +107,10 @@ class State
 
   def sort
     @value.sort!
+  end
+
+  def clear
+    @value.clear unless empty?
   end
 
   def clone

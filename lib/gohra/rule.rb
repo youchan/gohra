@@ -11,14 +11,14 @@ class Rule < DelegateClass(Game)
   end
 
   def apply(*args)
-    @context.notify_before_rule @name, self, *args
+    @context.notify_before_rule @name, self, args
     begin
       res = @context.instance_exec(*args, &@proc)
     rescue ValidateError => e
       @context.notify_validate_error(e, self)
       raise
     end
-    @context.notify_after_rule @name, self, *args
+    @context.notify_after_rule @name, self, args, res
     res
   end
 end

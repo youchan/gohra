@@ -41,12 +41,12 @@ class Game
     bind_states(GlobalState)
   end
 
-  def notify_before_rule(name, rule, *args)
-    players.each {|player| player.notify_before_rule(name, rule, *args) }
+  def notify_before_rule(name, rule, args)
+    players.each {|player| player.notify_before_rule(name, rule, args) }
   end
 
-  def notify_after_rule(name, rule, *args)
-    players.each {|player| player.notify_after_rule(name, rule, *args) }
+  def notify_after_rule(name, rule, args, result)
+    players.each {|player| player.notify_after_rule(name, rule, args, result) }
   end
 
   def joker(n)
