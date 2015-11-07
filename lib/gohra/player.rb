@@ -85,41 +85,19 @@ class Players < DelegateClass(Array)
     instance_exec(&block)
   end
 
-  def turn(&block)
-    @turn = block
-  end
-
   def rule(id, &block)
     @rules = {} unless @rules
     @rules[id] = block
-  end
-
-  def validation_rule(id, &block)
-    @validation_rules = {} unless @validation_rules
-    @validation_rules[id] = block
   end
 
   def set(players)
     replace(players)
     self.each do |player|
       bind_states(player.singleton_class)
-      turn = @turn
-
-      player.singleton_class.class_eval do
-        define_method :turn do |game|
-          game.instance_exec(player, &turn)
-        end
-      end
 
       if @rules
         @rules.each do |id, proc|
           define_rule(@game, player, id, &proc)
-        end
-      end
-
-      if @validation_rules
-        @validation_rules.each do |id, proc|
-          define_validation_rule(@game, player, id, &proc)
         end
       end
     end
@@ -127,11 +105,5 @@ class Players < DelegateClass(Array)
 
   def except(player)
     self.reject {|u| u == player }
-  end
-
-  def notice_all(type, params)
-    self.each do |player|
-      player.notice(type, params)
-    end
   end
 end

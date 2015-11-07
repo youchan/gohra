@@ -41,13 +41,6 @@ class Game
     bind_states(GlobalState)
   end
 
-  def turns
-    return @turns unless block_given?
-    @turns = Turns.new(self)
-    @turns.instance_eval(&proc)
-    @turns
-  end
-
   def notify_before_rule(name, rule, *args)
     players.each {|player| player.notify_before_rule(name, rule, *args) }
   end

@@ -10,10 +10,6 @@ player do
   state :up, :number
   state :pass, :flag, 1, false
 
-  turn do |player|
-    player.choose_from_hand
-  end
-
   rule(:choose_from_hand) do
     pass = false
     choice.value = choose(:hand, 1..4) {|cards| validate_choice(cards) }
@@ -80,7 +76,7 @@ progression do
 
   turns.cycle do |player|
     skip if player.is_up?
-    player.turn(self)
+    player.choose_from_hand
     put_player_choice_on_tableau(player)
     turn_break?(player) do
       clear_tableau
