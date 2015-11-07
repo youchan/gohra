@@ -96,8 +96,7 @@ class State
     if block_given?
       begin
         yield choice
-      rescue => e
-        p e
+      rescue
         return nil
       end
     end

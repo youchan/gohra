@@ -25,23 +25,19 @@ player do
   end
 
   rule(:validate_choice) do |cards|
-    same_number_of(cards)
-    next if tableau.count == 0
-    raise "not match count" unless tableau.count == cards.count
-    same_suit_of(cards)
-    greater_than(cards)
-
+    same_number_of cards
+    next true if tableau.count == 0
+    same_count_of cards
+    greater_than cards
     true
   end
 
-  rule(:same_suit_of) do |cards|
-    return unless cards.count == 1
-    return if cards[0] == Card::JOKER || tableau[0] == Card::JOKER
-    raise "validate error: same suit of" if cards[0].suit != tableau[0].suit
+  rule(:same_number_of) do |cards|
+    validate_error cards if cards.count > 1 && cards.any? {|c| cards[0].number != c.number }
   end
 
-  rule(:same_number_of) do |cards|
-    raise "validate error: same number of" if cards.count > 1 && cards.any? {|c| cards[0].number != c.number }
+  rule(:same_count_of) do |cards|
+    validate_error cards unless tableau.count == cards.count
   end
 
   rule(:greater_than) do |cards|
@@ -51,7 +47,7 @@ player do
     tableau_num = tableau[0].number
     tableau_num = 14 if tableau_num == 1
     tableau_num = 15 if tableau_num == 0
-    raise "validate error: less than" if num <= tableau_num
+    validate_error cards if num <= tableau_num
   end
 end
 

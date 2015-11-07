@@ -69,6 +69,10 @@ class Player
   def notify_state_updated(name, state)
     method("notify_#{name}_updated").call(state) if respond_to? "notity_#{name}_updated"
   end
+
+  def notify_validate_error(err, rule)
+    handle_validate_error(err, rule) if respond_to? :handle_validate_error
+  end
 end
 
 class Players < DelegateClass(Array)

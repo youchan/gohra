@@ -26,6 +26,10 @@ class ConsolePlayer < Player
     end
   end
 
+  def handle_validate_error(err, rule)
+    puts "バリデーションエラー： #{rule.name}" unless rule.name == :validate_choice
+  end
+
   after_rule :put_player_choice_on_tableau do |player|
     unless player.choice.empty?
       puts "[#{@name}] #{player.name}が#{player.choice}を切りました。"

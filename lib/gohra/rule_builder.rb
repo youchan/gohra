@@ -5,4 +5,8 @@ module RuleBuilder
       define_method(id) {|*args| rule.apply(*args) }
     end
   end
+
+  def validate_error(msg)
+    raise Rule::ValidateError.new msg
+  end
 end
