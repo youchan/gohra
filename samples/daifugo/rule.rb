@@ -56,7 +56,7 @@ rule(:turn_break?) do |player|
   players.except(player).all? {|p| p.pass.value }
 end
 
-rule(:last_one_player?) do |player|
+rule(:last_one_player?) do
   players.select(&:is_up?).count == (players.count - 1)
 end
 
