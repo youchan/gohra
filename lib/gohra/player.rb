@@ -52,12 +52,22 @@ class Player
     end
   end
 
+  def self.state_updated(name, &block)
+    self.instance_eval do
+      define_method("notify_#{name}_updated", &block)
+    end
+  end
+
   def notify_before_rule(name, rule, *args)
     method("notify_before_#{name}").call(*args) if respond_to? "notify_before_#{name}"
   end
 
   def notify_after_rule(name, rule, *args)
     method("notify_after_#{name}").call(*args) if respond_to? "notify_after_#{name}"
+  end
+
+  def notify_state_updated(name, state)
+    method("notify_#{name}_updated").call(state) if respond_to? "notity_#{name}_updated"
   end
 end
 
