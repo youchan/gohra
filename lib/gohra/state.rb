@@ -97,7 +97,7 @@ class State
     if block_given?
       begin
         yield choice
-      rescue Rule::ValidateError => e
+      rescue Rule::ValidationError => e
         return nil
       end
     end

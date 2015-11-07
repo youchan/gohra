@@ -1,5 +1,5 @@
 class Rule < DelegateClass(Game)
-  class ValidateError < StandardError; end
+  class ValidationError < StandardError; end
 
   attr_reader :name, :context
 
@@ -14,8 +14,8 @@ class Rule < DelegateClass(Game)
     @context.notify_before_rule @name, self, args
     begin
       res = @context.instance_exec(*args, &@proc)
-    rescue ValidateError => e
-      @context.notify_validate_error(e, self)
+    rescue ValidationError => e
+      @context.notify_validation_error(e, self)
       raise
     end
     @context.notify_after_rule @name, self, args, res

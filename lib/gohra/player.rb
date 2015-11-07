@@ -70,8 +70,8 @@ class Player
     method("notify_#{name}_updated").call(state) if respond_to? "notity_#{name}_updated"
   end
 
-  def notify_validate_error(err, rule)
-    handle_validate_error(err, rule) if respond_to? :handle_validate_error
+  def notify_validation_error(err, rule)
+    handle_validation_error(err, rule) if respond_to? :handle_validation_error
   end
 end
 

@@ -6,7 +6,7 @@ module RuleBuilder
     end
   end
 
-  def validate_error(msg)
-    raise Rule::ValidateError.new msg
+  def validation_error(msg)
+    raise Rule::ValidationError.new msg
   end
 end

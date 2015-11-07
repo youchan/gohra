@@ -26,8 +26,8 @@ class ConsolePlayer < Player
     end
   end
 
-  def handle_validate_error(err, rule)
-    puts "バリデーションエラー： #{rule.name}" unless rule.name == :validate_choice
+  def handle_validation_error(err, rule)
+    puts "バリデーションエラー： #{rule.name}" unless rule.name == :validation_choice
   end
 
   after_rule :put_player_choice_on_tableau do |params|

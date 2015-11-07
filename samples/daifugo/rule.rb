@@ -29,11 +29,11 @@ player do
   end
 
   rule(:same_number_of) do |cards|
-    validate_error cards if cards.count > 1 && cards.any? {|c| cards[0].number != c.number }
+    validation_error cards if cards.count > 1 && cards.any? {|c| cards[0].number != c.number }
   end
 
   rule(:same_count_of) do |cards|
-    validate_error cards unless tableau.count == cards.count
+    validation_error cards unless tableau.count == cards.count
   end
 
   rule(:greater_than) do |cards|
@@ -43,7 +43,7 @@ player do
     tableau_num = tableau[0].number
     tableau_num = 14 if tableau_num == 1
     tableau_num = 15 if tableau_num == 0
-    validate_error cards if num <= tableau_num
+    validation_error cards if num <= tableau_num
   end
 end
 
