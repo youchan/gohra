@@ -21,13 +21,16 @@ class ConsolePlayer < Player
   def notice(type, params: {})
     case type
     when :update_tableau
-      unless params[:cards].nil?
-        puts "[#{@name}] #{params[:player].name}が#{params[:cards]}を切りました。"
-      else
-        puts "[#{@name}] がパスしました。"
-      end
     else
       puts "[#{@name}] #{type.to_s}"
+    end
+  end
+
+  after_rule :put_player_choice_on_tableau do |player|
+    unless player.choice.empty?
+      puts "[#{@name}] #{player.name}が#{player.choice}を切りました。"
+    else
+      puts "[#{@name}] #{player.name}がパスしました。"
     end
   end
 end

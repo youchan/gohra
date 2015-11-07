@@ -113,6 +113,10 @@ class State
     State.new(@game, @id, @type, @size, @value, &@initializer)
   end
 
+  def empty?
+    @value.nil? || (@value.respond_to?(:empty?) && @value.empty?)
+  end
+
   def to_s
     @value.inspect
   end

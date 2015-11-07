@@ -4,7 +4,7 @@ state :tableau, :cards, :any
 state :used, :cards, :any
 state :turns, :players
 
-players do
+player do
   state :hand, :cards, :any
   state :choice, :cards, 1..4
   state :up, :number
@@ -58,7 +58,6 @@ end
 rule(:put_player_choice_on_tableau) do |player|
   used << tableau
   self.tableau = player.choice.value
-  players.notice_all(:update_tableau, params: {player:player, cards: player.choice})
 end
 
 rule(:turn_break?) do |player|

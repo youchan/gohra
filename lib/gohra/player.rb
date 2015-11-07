@@ -41,15 +41,34 @@ class Player
   def state(id)
     self.singleton_class.instance_method(id).bind(self).call
   end
+
+  def self.before_rule(name, &block)
+    self.define_method("notify_before_#{name}", &block)
+  end
+
+  def self.after_rule(name, &block)
+    self.instance_eval do
+      define_method("notify_after_#{name}", &block)
+    end
+  end
+
+  def notify_before_rule(name, rule, *args)
+    method("notify_before_#{name}").call(*args) if respond_to? "notify_before_#{name}"
+  end
+
+  def notify_after_rule(name, rule, *args)
+    method("notify_after_#{name}").call(*args) if respond_to? "notify_after_#{name}"
+  end
 end
 
 class Players < DelegateClass(Array)
   include StateBuilder
   include RuleBuilder
 
-  def initialize(game)
+  def initialize(game, &block)
     super([])
     @game = game
+    instance_exec(&block)
   end
 
   def turn(&block)

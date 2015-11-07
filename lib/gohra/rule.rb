@@ -1,5 +1,5 @@
 class Rule < DelegateClass(Game)
-  attr_reader :proc
+  attr_reader :name, :context
 
   def initialize(game, context, name, proc)
     super(game)
@@ -8,9 +8,9 @@ class Rule < DelegateClass(Game)
     @proc = proc
   end
 
-  def validate(*args)
-    unless @context.instance_exec(*args, &@proc)
-      raise "validate error: #{@name}"
-    end
+  def apply(*args)
+    @context.notify_before_rule @name, self, *args
+    @context.instance_exec(*args, &@proc)
+    @context.notify_after_rule @name, self, *args
   end
 end

@@ -10,7 +10,7 @@ class Game
   include StateBuilder
   include GlobalState
 
-  attr_reader :rules
+  attr_reader :rules, :players
 
   def initialize(rule)
     self.instance_eval rule
@@ -22,12 +22,8 @@ class Game
     @deck = Deck.new(Card::REGULAR_CARDS + (params[:include] || []) - (params[:exclude] || []))
   end
 
-  def players(&block)
-    return @players unless block_given?
-
-    @players = Players.new self
-    @players.instance_eval(&block)
-    @players
+  def player(&block)
+    @players = Players.new(self, &block)
   end
 
   def progression
@@ -40,10 +36,6 @@ class Game
     define_rule(self, self, id, &block)
   end
 
-  def validation_rule(id, &block)
-    define_validation_rule(self, self, id, &block)
-  end
-
   def init(players)
     @players.set players
     bind_states(GlobalState)
@@ -54,6 +46,14 @@ class Game
     @turns = Turns.new(self)
     @turns.instance_eval(&proc)
     @turns
+  end
+
+  def notify_before_rule(name, rule, *args)
+    players.each {|player| player.notify_before_rule(name, rule, *args) }
+  end
+
+  def notify_after_rule(name, rule, *args)
+    players.each {|player| player.notify_after_rule(name, rule, *args) }
   end
 
   def joker(n)
