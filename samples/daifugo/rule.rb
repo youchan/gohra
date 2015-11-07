@@ -22,7 +22,7 @@ player do
 
   rule(:validate_choice) do |cards|
     same_number_of cards
-    next true if tableau.count == 0
+    next true if tableau.empty?
     same_count_of cards
     greater_than cards
     true
