@@ -11,7 +11,7 @@ player do
   state :pass, :flag, 1, false
 
   rule(:choose_from_hand) do
-    pass = false
+    self.pass = false
     choice.value = choose(:hand, 1..4) {|cards| validate_choice(cards) }
     self.pass = true if choice.empty?
   end
