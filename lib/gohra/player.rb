@@ -14,7 +14,7 @@ class Player
       cards = nil
       while cards.nil?
         choice = input_choice(state, range)
-        break if choice.empty?
+        break if choice.nil? || choice.empty?
         if block_given?
           cards = state.select(choice, &proc)
         else
