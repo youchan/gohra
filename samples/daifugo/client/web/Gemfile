@@ -5,7 +5,7 @@ gem 'sinatra-contrib'
 gem 'slack-ruby-client'
 
 gem 'opal-router',    github: 'adambeynon/opal-router'
-gem 'hyalite', path: '../../../hyalite'
+gem 'hyalite', path: '../../../../../hyalite'
 
 gem 'haml'
 gem 'sass'
