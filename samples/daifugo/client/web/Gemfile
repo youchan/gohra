@@ -4,6 +4,8 @@ gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'slack-ruby-client'
 
+gem 'thin'
+
 gem 'opal-router',    github: 'adambeynon/opal-router'
 gem 'hyalite', path: '../../../../../hyalite'
 

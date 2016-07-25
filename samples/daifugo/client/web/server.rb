@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'opal'
 
 if development?
   require 'sinatra/reloader'
@@ -9,8 +10,10 @@ class Server < Sinatra::Base
   end
 
   get '/' do
-    @now = Time.now.month
     haml :index
   end
-end
 
+  get "/favicon.ico" do
+  end
+
+end
