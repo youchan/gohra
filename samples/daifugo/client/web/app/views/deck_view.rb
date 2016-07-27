@@ -1,13 +1,13 @@
-require_relative 'card'
+require_relative 'card_view'
 
-class Deck
+class DeckView
   include Hyalite::Component
   include Hyalite::Component::ShortHand
 
   def render
     ul({ className: :table },
       li(nil,
-        Card.el(rank: :A, suit: :hearts)
+        CardView.el(card: Card.new(rank: :A, suit: :hearts))
       )
     )
   end
