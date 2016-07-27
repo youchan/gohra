@@ -6,8 +6,6 @@
     %h1 Daifugo
 
     .playingCards.faceImages
-      %ul.table
-        %li
-          %a.card.rank-k.hearts
-            %span.rank K
-            %span.suit &hearts;
+      .deck
+
+    = ::Opal::Sprockets.javascript_include_tag('application', sprockets: settings.opal.sprockets, prefix: 'assets', debug: true)
