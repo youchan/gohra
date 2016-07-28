@@ -3,9 +3,51 @@
   %head
     %link{rel:"stylesheet", href:"assets/css/application.css"}
   %body
-    %h1 Daifugo
+    %h1 President
 
     .playingCards.faceImages
-      .deck
+      %ul.players-box
+        %li.player
+          %p.player-icon
+          %p.name Player 1
+        %li.player
+          %p.player-icon
+          %p.name Player 2
+        %li.player
+          %p.player-icon
+          %p.name Player 3
+
+      .table
+        %ul.layout
+          %li.card.rank-a.hearts
+            %span.rank A
+            %span.suit &hearts;
+          %li.card.rank-a.diams
+            %span.rank A
+            %span.suit &diams;
+          %li.card.rank-a.clubs
+            %span.rank A
+            %span.suit &clubs;
+          %li.card.rank-a.spades
+            %span.rank A
+            %span.suit &spades;
+        .stocks
+          %div
+            %ul.deck
+              %li
+                .card.back *
+              %li
+                .card.back *
+              %li
+                .card.back *
+              %li
+                .card.back *
+              %li
+                .card.back *
+      .hands
+      .players-box
+        .player
+          %p.player-icon
+          %p.name You
 
     = ::Opal::Sprockets.javascript_include_tag('application', sprockets: settings.opal.sprockets, prefix: 'assets', debug: true)

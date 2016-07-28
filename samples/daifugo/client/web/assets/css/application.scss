@@ -1,2 +1,56 @@
 //= require './cards'
 
+body {
+  background-color: #040;
+}
+
+.players-box {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 60px;
+  list-style: none;
+  white-space: nowrap;
+}
+
+.player {
+  width: 64px;
+
+  .player-icon {
+    width: 64px;
+    height: 64px;
+    background-size: contain;
+    background-image: url(../../assets/images/player.png);
+  }
+
+  .name {
+    text-align: center;
+  }
+}
+
+.table {
+  .layout {
+    display: flex;
+    justify-content: center;
+  }
+
+  .stocks {
+    display: flex;
+    justify-content: center;
+
+    ul.deck {
+      width: 80px;
+    }
+
+    ul.deck > li {
+      display: inline-block;
+    }
+  }
+
+  margin-bottom: 60px;
+}
+
+.hands ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}

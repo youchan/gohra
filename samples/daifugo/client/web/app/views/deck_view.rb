@@ -5,7 +5,22 @@ class DeckView
   include Hyalite::Component::ShortHand
 
   def render
-    ul({ className: :table },
+    ul({},
+      li(nil,
+        CardView.el(card: Card.new(rank: :A, suit: :hearts))
+      ),
+      li(nil,
+        CardView.el(card: Card.new(rank: :A, suit: :hearts))
+      ),
+      li(nil,
+        CardView.el(card: Card.new(rank: :A, suit: :hearts))
+      ),
+      li(nil,
+        CardView.el(card: Card.new(rank: :A, suit: :hearts))
+      ),
+      li(nil,
+        CardView.el(card: Card.new(rank: :A, suit: :hearts))
+      ),
       li(nil,
         CardView.el(card: Card.new(rank: :A, suit: :hearts))
       )
