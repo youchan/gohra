@@ -4,7 +4,7 @@ body {
   background-color: #040;
 }
 
-.players-box {
+.players-box ul {
   display: flex;
   justify-content: space-around;
   margin-bottom: 60px;
@@ -53,4 +53,9 @@ body {
   display: flex;
   justify-content: center;
   list-style: none;
+}
+
+.yourself {
+  display: flex;
+  justify-content: space-around;
 }
