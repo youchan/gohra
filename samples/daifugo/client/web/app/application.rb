@@ -1,6 +1,6 @@
 require 'hyalite'
 require 'menilite'
 require_relative 'models/card'
-require_relative 'views/deck_view'
+require_relative 'views/hands_view'
 
-Hyalite.render(Hyalite.create_element(DeckView), $document[".hands"])
+Hyalite.render(Hyalite.create_element(HandsView), $document[".hands"])
