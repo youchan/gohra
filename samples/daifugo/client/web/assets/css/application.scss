@@ -27,6 +27,15 @@ body {
   }
 }
 
+.logo {
+  width: 100%;
+  height: 64px;
+  background-size: contain;
+  background-image: url(../../assets/images/president.png);
+  background-repeat: no-repeat;
+  margin-left: 40px;
+}
+
 .table {
   .layout {
     display: flex;
