@@ -4,29 +4,6 @@
     %link{rel:"stylesheet", href:"assets/css/application.css"}
   %body
     .logo
-
-    .playingCards.faceImages
-      .players-box
-
-      .table
-        .layout-placeholder
-        .stocks
-          %div
-            %ul.deck
-              %li
-                .card.back *
-              %li
-                .card.back *
-              %li
-                .card.back *
-              %li
-                .card.back *
-              %li
-                .card.back *
-      .hands
-      .yourself
-        .player
-          %p.player-icon
-          %p.name You
+    .game-board
 
     = ::Opal::Sprockets.javascript_include_tag('application', sprockets: settings.opal.sprockets, prefix: 'assets', debug: true)

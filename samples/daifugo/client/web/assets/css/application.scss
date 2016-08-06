@@ -4,7 +4,7 @@ body {
   background-color: #040;
 }
 
-.players-box ul {
+ul.opponents {
   display: flex;
   justify-content: space-around;
   margin-bottom: 60px;
@@ -37,7 +37,7 @@ body {
 }
 
 .table {
-  .layout {
+  ul.layout {
     display: flex;
     justify-content: center;
   }
@@ -58,7 +58,7 @@ body {
   margin-bottom: 60px;
 }
 
-.hands ul {
+ul.hands {
   display: flex;
   justify-content: center;
   list-style: none;

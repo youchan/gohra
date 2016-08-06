@@ -9,6 +9,6 @@ class HandsView
   end
 
   def render
-    ul({}, @cards.map {|card| li(nil, CardView.el(card: card)) })
+    ul({className: 'hands'}, @cards.map {|card| li(nil, CardView.el(card: card)) })
   end
 end
