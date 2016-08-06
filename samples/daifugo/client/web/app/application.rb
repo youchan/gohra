@@ -4,4 +4,13 @@ require_relative 'models/card'
 require_relative 'models/player'
 require_relative 'views/board_view'
 
-Hyalite.render(Hyalite.create_element(BoardView), $document[".game-board"])
+class AppView
+  include Hyalite::Component
+  include Hyalite::Component::ShortHand
+
+  def render
+    BoardView.el
+  end
+end
+
+Hyalite.render(Hyalite.create_element(AppView), $document[".content"])
