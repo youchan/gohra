@@ -13,5 +13,5 @@ gem 'menilite', path: '../../../../../menilite'
 
 gem 'haml'
 gem 'sass'
-#
-# gem 'bcrypt'
+
+gem 'bcrypt'

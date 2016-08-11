@@ -1,7 +1,9 @@
 require 'bundler/setup'
 Bundler.require(:default)
 
-require File.dirname(__FILE__) + '/server.rb'
+require 'menilite'
+require_relative 'app/models/player.rb'
+require_relative 'server.rb'
 
 app = Rack::Builder.app do
   map '/' do
@@ -14,6 +16,11 @@ app = Rack::Builder.app do
 
   map '/__OPAL_SOURCE_MAPS__' do
     run Opal::SourceMapServer.new(Server::OPAL.sprockets, '/__OPAL_SOURCE_MAPS__')
+  end
+
+  map '/api' do
+    router = Menilite::Router.new(Player)
+    run router.routes
   end
 end
 

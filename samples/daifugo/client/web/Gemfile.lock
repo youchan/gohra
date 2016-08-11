@@ -34,6 +34,7 @@ GEM
       tzinfo (~> 1.1)
     arel (7.1.1)
     backports (3.6.8)
+    bcrypt (3.1.11)
     concurrent-ruby (1.0.2)
     daemons (1.2.3)
     eventmachine (1.0.8)
@@ -91,6 +92,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt
   haml
   hyalite!
   menilite!
