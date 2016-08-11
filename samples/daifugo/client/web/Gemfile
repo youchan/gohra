@@ -2,8 +2,10 @@ source "https://rubygems.org"
 
 gem 'sinatra'
 gem 'sinatra-contrib'
-
 gem 'thin'
+
+gem 'rake'
+gem 'sqlite3'
 
 gem 'opal-router',    github: 'adambeynon/opal-router'
 gem 'hyalite', path: '../../../../../hyalite'
@@ -11,3 +13,5 @@ gem 'menilite', path: '../../../../../menilite'
 
 gem 'haml'
 gem 'sass'
+#
+# gem 'bcrypt'
