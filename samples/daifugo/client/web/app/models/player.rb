@@ -11,4 +11,10 @@ class Player < Menilite::Model
     self.password = BCrypt::Password.create(password)
     self.save
   end
+
+  unless RUBY_ENGINE == 'opal'
+    def auth(password)
+      BCrypt::Password.new(self.password) == password
+    end
+  end
 end

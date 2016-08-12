@@ -18,10 +18,19 @@ class Server < Sinatra::Base
 
   configure do
     set opal: OPAL
+    enable :sessions
   end
 
   get '/' do
-    haml :index
+    if session[:player]
+      haml :index
+    else
+      redirect to('/login')
+    end
+  end
+
+  get '/login' do
+    haml :login
   end
 
   get '/signup' do
