@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'opal'
 require 'opal/sprockets'
+require 'sinatra/activerecord'
 
 if development?
   require 'sinatra/reloader'
