@@ -4,8 +4,8 @@ class CreateSessions < ActiveRecord::Migration
       t.string :guid, null: false
       t.string :player_guid
       t.string :session_id
-      t.time :login_at
-      t.time :expire_at
+      t.datetime :login_at
+      t.datetime :expire_at
       t.boolean :login
     end
   end

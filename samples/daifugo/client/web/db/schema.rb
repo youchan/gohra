@@ -20,12 +20,12 @@ ActiveRecord::Schema.define(version: 20160813104158) do
   end
 
   create_table "sessions", force: :cascade do |t|
-    t.string  "guid",        null: false
-    t.string  "player_guid"
-    t.string  "session_id"
-    t.time    "login_at"
-    t.time    "expire_at"
-    t.boolean "login"
+    t.string   "guid",        null: false
+    t.string   "player_guid"
+    t.string   "session_id"
+    t.datetime "login_at"
+    t.datetime "expire_at"
+    t.boolean  "login"
   end
 
 end
