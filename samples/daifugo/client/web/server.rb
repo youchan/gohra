@@ -25,8 +25,8 @@ class Server < Sinatra::Base
   end
 
   get '/' do
-    if session[:player]
-      haml :index
+    if session[:login]
+      haml :lobby
     else
       redirect to('/login')
     end
@@ -38,6 +38,10 @@ class Server < Sinatra::Base
 
   get '/signup' do
     haml :signup
+  end
+
+  get '/lobby' do
+    haml :lobby
   end
 
   get '/websocket' do

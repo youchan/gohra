@@ -1,0 +1,29 @@
+//= require './bulma'
+//= require './font-awesome'
+
+.hero {
+  background-color: #040;
+}
+
+ul.login-users {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 60px;
+  list-style: none;
+  white-space: nowrap;
+}
+
+.player {
+  width: 64px;
+
+  .player-icon {
+    width: 64px;
+    height: 64px;
+    background-size: contain;
+    background-image: url(../../assets/images/player.png);
+  }
+
+  .name {
+    text-align: center;
+  }
+}

@@ -34,6 +34,7 @@ class LoginForm
         input({class: 'input', ref: 'password', type: 'password', placeholder: 'Password'}),
         i({class: 'fa fa-lock'})
       ),
+      p({class: 'has-text-right'}, a({href: '/signup'}, '> Create account')),
       p({class: 'control'},
         button({class: 'button is-primary', onClick: self.method(:on_click) }, "Login")
       )

@@ -1,0 +1,12 @@
+!!!
+%html(lang="en" data-framework="hyalite")
+  %head
+    %link{rel:"stylesheet", href:"assets/css/lobby.css"}
+  %body
+    %section.hero.is-fullheight
+      .hero-body
+        .container
+          .content
+
+    = ::Opal::Sprockets.javascript_include_tag('lobby', sprockets: settings.opal.sprockets, prefix: 'assets', debug: true)
+
