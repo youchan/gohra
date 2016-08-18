@@ -6,7 +6,10 @@ class LobbyView
 
   def render
     div({className: 'lobby'},
-      LoginUsersView.el
+      LoginUsersView.el,
+      div({class: 'has-text-centered'},
+        a({class: 'button is-danger is-large'}, 'Start Game'),
+      )
     )
   end
 end

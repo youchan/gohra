@@ -25,7 +25,7 @@ class Server < Sinatra::Base
   end
 
   get '/' do
-    if session[:login]
+    if Session.auth(session[:session_id])
       haml :lobby
     else
       redirect to('/login')

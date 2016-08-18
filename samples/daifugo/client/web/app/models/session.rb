@@ -9,4 +9,18 @@ class Session < Menilite::Model
     assoc = self.store.armodel(self).where(login: true)
     assoc.map{|ar| self.store.to_model(ar, self).to_h }.tap{|o| p o }
   end
+
+  unless RUBY_ENGINE == 'opal'
+    def self.auth(session_id)
+      login = Session.fetch(filter:{session_id: session_id}).first
+      if login && login.expire_at > Time.now
+        login.expire_at = Time.now + 5 * 60
+        login.save
+        true
+      else
+        login.login = false if login
+        false
+      end
+    end
+  end
 end
