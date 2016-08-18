@@ -14,4 +14,5 @@ gem 'menilite', path: '../../../../../menilite'
 gem 'haml'
 gem 'sass'
 
+gem 'sinatra-websocket'
 gem 'bcrypt'
