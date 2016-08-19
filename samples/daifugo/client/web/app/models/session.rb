@@ -1,5 +1,5 @@
 class Session < Menilite::Model
-  field :player, :reference
+  field :account, :reference
   field :session_id, :string, client: false
   field :login_at, :time, client: false
   field :expire_at, :time, client: false

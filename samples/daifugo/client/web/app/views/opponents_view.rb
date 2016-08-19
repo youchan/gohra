@@ -5,7 +5,7 @@ class OpponentsView
   include Hyalite::Component::ShortHand
 
   def component_will_mount
-    @opponents = (1..3).map {|i| Player.new(name: "Player #{i}") }
+    @opponents = (1..3).map {|i| Account.new(name: "Player #{i}") }
   end
 
   def render

@@ -1,4 +1,4 @@
-require_relative '../models/player'
+require_relative '../models/account'
 require_relative '../models/session'
 require_relative 'player_view'
 
@@ -23,6 +23,6 @@ class LoginUsersView
   end
 
   def render
-    ul({class: 'login-users'}, @state[:login_users].map {|user| li(nil, PlayerView.el(player:user.player)) })
+    ul({class: 'login-users'}, @state[:login_users].map {|user| li(nil, PlayerView.el(player:user.account)) })
   end
 end

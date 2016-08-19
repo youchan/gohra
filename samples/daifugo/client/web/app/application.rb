@@ -1,7 +1,7 @@
 require 'hyalite'
 require 'menilite'
 require_relative 'models/card'
-require_relative 'models/player'
+require_relative 'models/account'
 require_relative 'views/board_view'
 
 class AppView

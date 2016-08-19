@@ -1,4 +1,4 @@
-require_relative '../models/player'
+require_relative '../models/account'
 
 class SignupForm
   include Hyalite::Component
@@ -13,7 +13,7 @@ class SignupForm
     username = @refs['username'].value
     password = @refs['password'].value
 
-    model = Player.new(name: display_name, login: username)
+    model = Account.new(name: display_name, uid: username)
     model.signup(password) do |status|
       case status
       when :success

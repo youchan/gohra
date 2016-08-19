@@ -12,16 +12,16 @@
 
 ActiveRecord::Schema.define(version: 20160813104158) do
 
-  create_table "players", force: :cascade do |t|
+  create_table "accounts", force: :cascade do |t|
     t.string "guid"
     t.string "name"
-    t.string "login"
+    t.string "uid"
     t.string "password"
   end
 
   create_table "sessions", force: :cascade do |t|
-    t.string   "guid",        null: false
-    t.string   "player_guid"
+    t.string   "guid",         null: false
+    t.string   "account_guid"
     t.string   "session_id"
     t.datetime "login_at"
     t.datetime "expire_at"
