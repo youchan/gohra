@@ -12,14 +12,13 @@ class Session < Menilite::Model
 
   unless RUBY_ENGINE == 'opal'
     def self.auth(session_id)
-      login = Session.fetch(filter:{session_id: session_id}).first
-      if login && login.expire_at > Time.now
-        login.expire_at = Time.now + 5 * 60
-        login.save
-        true
+      session = Session.fetch(filter:{session_id: session_id}).first
+      if session && session.expire_at > Time.now
+        session.expire_at = Time.now + 5 * 60
+        session.save
       else
-        login.login = false if login
-        false
+        session.login = false if login
+        nil
       end
     end
   end
