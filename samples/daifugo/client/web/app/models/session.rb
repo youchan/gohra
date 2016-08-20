@@ -14,10 +14,9 @@ class Session < Menilite::Model
     def self.auth(session_id)
       session = Session.fetch(filter:{session_id: session_id}).first
       if session && session.expire_at > Time.now
-        session.expire_at = Time.now + 5 * 60
-        session.save
+        session.update!(expire_at: Time.now + 5 * 60)
       else
-        session.login = false if login
+        session.update!(login: false) if login
         nil
       end
     end
