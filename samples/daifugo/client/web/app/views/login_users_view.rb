@@ -7,7 +7,7 @@ class LoginUsersView
   include Hyalite::Component::ShortHand
 
   def initial_state
-    PushMessage.default.on_receive(:login) {|cmd, msg| puts msg; fetch_login_users }
+    PushMessage.default.on_receive(:login) {|cmd, msg| fetch_login_users }
     fetch_login_users
     { login_users: [] }
   end
