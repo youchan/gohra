@@ -20,13 +20,19 @@ class Server < Sinatra::Base
 
   configure do
     set opal: OPAL
-    set sockets: []
+    set sockets: {}
+    set engines: {}
     enable :sessions
   end
 
   get '/' do
-    if Session.auth(session[:session_id])
-      haml :lobby
+    if session = Session.auth(self.session[:session_id])
+      @player = Player.fetch(filter:{account_id: session.account.id, playing: true}).first
+      if @player
+        haml :index
+      else
+        redirect to('/lobby')
+      end
     else
       redirect to('/login')
     end
@@ -41,17 +47,22 @@ class Server < Sinatra::Base
   end
 
   get '/lobby' do
-    haml :lobby
+    if session = Session.auth(self.session[:session_id])
+      haml :lobby
+    else
+      redirect to('/login')
+    end
   end
 
   get '/websocket' do
     if request.websocket? then
       request.websocket do |ws|
+        session = Session.auth(self.session[:session_id])
         ws.onopen do
-          settings.sockets << ws
+          (settings.sockets[session.account.id] ||= [])<< ws
         end
         ws.onclose do
-          settings.sockets.delete(ws)
+          settings.sockets[session.account.id].delete(ws)
         end
       end
     end

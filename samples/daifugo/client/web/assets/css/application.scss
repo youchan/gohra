@@ -12,6 +12,11 @@ ul.opponents {
   white-space: nowrap;
 }
 
+.player-aria {
+  display: flex;
+  justify-content: center;
+}
+
 .player {
   width: 64px;
 

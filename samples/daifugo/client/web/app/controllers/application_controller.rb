@@ -20,10 +20,17 @@ class ApplicationController < Menilite::Controller
       end
 
       login = Session.new(account_id: account.id, session_id: session[:session_id], login_at: Time.now, expire_at: Time.now + 5 * 60).save
-      settings.sockets.each {|ws| ws.send("login: #{account.name} is logged in.")}
+      settings.sockets.values.flatten.each {|ws| ws.send("login: #{account.name} is logged in.")}
       account
     else
       raise "Login failed"
     end
+  end
+
+  action :current_account do
+    session = Session.fetch(filter: {session_id: self.session[:session_id], login: true}).first
+    session.account
+    # player = Player.fetch(filter: {account_id: session.account_id}).first
+    # player.account if player
   end
 end

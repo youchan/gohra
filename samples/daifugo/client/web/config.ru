@@ -4,7 +4,10 @@ Bundler.require(:default)
 require 'menilite'
 require_relative 'app/models/account.rb'
 require_relative 'app/models/session.rb'
+require_relative 'app/models/game.rb'
+require_relative 'app/models/player.rb'
 require_relative 'app/controllers/application_controller.rb'
+require_relative 'app/controllers/game_controller.rb'
 require_relative 'server.rb'
 
 app = Rack::Builder.app do
@@ -23,7 +26,7 @@ app = Rack::Builder.app do
   end
 
   map '/api' do
-    router = Menilite::Router.new(Account, Session, ApplicationController)
+    router = Menilite::Router.new(Account, Session, Game, Player, ApplicationController, GameController)
     run router.routes(server.settings)
   end
 end

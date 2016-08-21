@@ -16,7 +16,7 @@ class Session < Menilite::Model
       if session && session.expire_at > Time.now
         session.update!(expire_at: Time.now + 5 * 60)
       else
-        session.update!(login: false) if login
+        session.update!(login: false) if session
         nil
       end
     end
