@@ -11,6 +11,8 @@ gem 'opal-router',    github: 'adambeynon/opal-router'
 gem 'hyalite', path: '../../../../../hyalite'
 gem 'menilite', path: '../../../../../menilite'
 
+gem 'gohra', path: '../../../../../gohra'
+
 gem 'haml'
 gem 'sass'
 

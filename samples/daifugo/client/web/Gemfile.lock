@@ -6,6 +6,11 @@ GIT
       opal (>= 0.3.44)
 
 PATH
+  remote: ../../../../../gohra
+  specs:
+    gohra (0.1.0)
+
+PATH
   remote: ../../../../../hyalite
   specs:
     hyalite (0.0.1)
@@ -101,6 +106,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt
+  gohra!
   haml
   hyalite!
   menilite!
