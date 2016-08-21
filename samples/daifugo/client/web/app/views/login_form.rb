@@ -8,12 +8,17 @@ class LoginForm
     @state = { error: false }
   end
 
-  def on_click
+  def on_keypress(event)
+    if event.code == 13
+      submit
+    end
+  end
+
+  def submit
     username = @refs[:username].value
     password = @refs[:password].value
 
-    controller = ApplicationController.new
-    controller.login(username, password) do |status, result|
+    ApplicationController.login(username, password) do |status, result|
       case status
       when :success
         `window.location = '/'`
@@ -27,16 +32,16 @@ class LoginForm
     div({class: 'login-form'},
       h3({}, "Login"),
       p({class: 'control has-icon'},
-        input({class: 'input', ref: 'username', type: 'text', placeholder: 'Username'}),
+        input({class: 'input', ref: 'username', type: 'text', placeholder: 'Username', onKeyPress: self.method(:on_keypress)}),
         i({class: 'fa fa-user'})
       ),
       p({class: 'control has-icon'},
-        input({class: 'input', ref: 'password', type: 'password', placeholder: 'Password'}),
+        input({class: 'input', ref: 'password', type: 'password', placeholder: 'Password', onKeyPress: self.method(:on_keypress)}),
         i({class: 'fa fa-lock'})
       ),
       p({class: 'has-text-right'}, a({href: '/signup'}, '> Create account')),
       p({class: 'control'},
-        button({class: 'button is-primary', onClick: self.method(:on_click) }, "Login")
+        button({class: 'button is-primary', onClick: self.method(:submit) }, "Login")
       )
     )
   end
