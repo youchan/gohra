@@ -12,7 +12,7 @@ class ApplicationController < Menilite::Controller
         if login.session_id == session[:session_id]
           login.expire_at = Time.now + 5 * 60
           login.save
-          return account
+          return account.to_h
         else
           login.login = false
           login.save
@@ -27,10 +27,11 @@ class ApplicationController < Menilite::Controller
     end
   end
 
-  action :current_account do
-    session = Session.fetch(filter: {session_id: self.session[:session_id], login: true}).first
-    session.account
-    # player = Player.fetch(filter: {account_id: session.account_id}).first
-    # player.account if player
+  action :board_state do
+    session = Session.find(session_id: self.session[:session_id], login: true)
+    player = Player.find(account_id: session.account_id, playing: true)
+    opponents = Player.fetch(filter: {game_id: player.game_id, playing: true}).reject{|p| p.id == player.id }.map{|p| p.account.to_h }
+
+    { account: session.account.to_h, opponents: opponents }
   end
 end

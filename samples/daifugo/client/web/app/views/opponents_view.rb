@@ -9,6 +9,6 @@ class OpponentsView
   end
 
   def render
-    ul({className: 'opponents'}, @opponents.map {|player| li(nil, PlayerView.el(player:player)) })
+    ul({className: 'opponents'}, @props[:opponents].map {|player| li(nil, PlayerView.el(player:player)) })
   end
 end

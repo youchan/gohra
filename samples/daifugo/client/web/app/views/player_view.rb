@@ -7,7 +7,7 @@ class PlayerView
 
     div({className: "player"},
       p(className: "player-icon"),
-      p({className: "name"}, player.name)
+      p({className: "name"}, player.try(&:name))
     )
   end
 end

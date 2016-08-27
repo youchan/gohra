@@ -8,19 +8,16 @@ class BoardView
   include Hyalite::Component::ShortHand
 
   def initial_state
-    { account: nil }
+    { account: nil, opponents: [] }
   end
 
   def component_did_mount
-    ApplicationController.current_account {|status, res| set_state(account: Account.new(res.json)) }
+    ApplicationController.board_state {|status, res| set_state(account: Account.new(res.json[:account]), opponents: res.json[:opponents].map{|acc| Account.new(acc) }) }
   end
 
   def render
-    player_view = @state[:account] ? PlayerView.el({player: @state[:account]}) : nil
-    puts "#{player_view.inspect}"
-
     div({className: 'playingCards faceImages'},
-      OpponentsView.el,
+      OpponentsView.el(opponents: @state[:opponents]),
       div({className: 'table'},
         LayoutView.el,
         div({className: 'stocks'},
@@ -28,7 +25,7 @@ class BoardView
         )
       ),
       HandsView.el,
-      div({class: 'player-aria'}, player_view )
+      div({class: 'player-aria'}, PlayerView.el({player: @state[:account]}))
     )
   end
 end
