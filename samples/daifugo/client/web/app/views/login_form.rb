@@ -1,3 +1,4 @@
+require 'browser/location'
 require_relative '../controllers/application_controller.rb'
 
 class LoginForm
@@ -21,7 +22,7 @@ class LoginForm
     ApplicationController.login(username, password) do |status, result|
       case status
       when :success
-        `window.location = '/'`
+        $window.location.uri = '/'
       when :error
         puts "error"
       end

@@ -1,3 +1,4 @@
+require 'browser/location'
 require_relative '../models/account'
 
 class SignupForm
@@ -17,7 +18,7 @@ class SignupForm
     model.signup(password) do |status|
       case status
       when :success
-        `window.location = '/'`
+        $window.location.uri = '/'
       when :failure
         set_state(error: true)
       end
