@@ -8,10 +8,10 @@ gem 'rake'
 gem 'sqlite3'
 
 gem 'opal-router',    github: 'adambeynon/opal-router'
-gem 'hyalite', path: '../../../../../hyalite'
-gem 'menilite', path: '../../../../../menilite'
+gem 'hyalite'
+gem 'menilite'
 
-gem 'gohra', path: '../../../../../gohra'
+gem 'gohra', path: '../..'
 
 gem 'haml'
 gem 'sass'

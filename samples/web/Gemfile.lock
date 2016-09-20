@@ -6,39 +6,26 @@ GIT
       opal (>= 0.3.44)
 
 PATH
-  remote: ../../../../../gohra
+  remote: ../..
   specs:
     gohra (0.1.0)
-
-PATH
-  remote: ../../../../../hyalite
-  specs:
-    hyalite (0.0.1)
-      opal
-      opal-browser
-
-PATH
-  remote: ../../../../../menilite
-  specs:
-    menilite (0.1.0)
-      sinatra-activerecord
 
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (5.0.0)
-      activesupport (= 5.0.0)
-    activerecord (5.0.0)
-      activemodel (= 5.0.0)
-      activesupport (= 5.0.0)
+    activemodel (5.0.0.1)
+      activesupport (= 5.0.0.1)
+    activerecord (5.0.0.1)
+      activemodel (= 5.0.0.1)
+      activesupport (= 5.0.0.1)
       arel (~> 7.0)
-    activesupport (5.0.0)
+    activesupport (5.0.0.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     addressable (2.4.0)
-    arel (7.1.1)
+    arel (7.1.2)
     backports (3.6.8)
     bcrypt (3.1.11)
     concurrent-ruby (1.0.2)
@@ -50,7 +37,12 @@ GEM
     haml (4.0.7)
       tilt
     hike (1.2.3)
+    hyalite (0.0.2)
+      opal
+      opal-browser
     i18n (0.7.0)
+    menilite (0.1.0)
+      sinatra-activerecord
     minitest (5.9.0)
     multi_json (1.12.1)
     opal (0.9.2)
@@ -108,8 +100,8 @@ DEPENDENCIES
   bcrypt
   gohra!
   haml
-  hyalite!
-  menilite!
+  hyalite
+  menilite
   opal-router!
   rake
   sass
