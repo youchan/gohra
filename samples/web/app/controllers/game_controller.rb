@@ -9,7 +9,7 @@ class GameController < Menilite::Controller
   end
 
   action :start do
-    rule = open(__dir__ + "/../../../../rule.rb").read
+    rule = open(File.expand_path("../../../../daifugo/rule.rb", __FILE__)).read
     login_users = Session.login_users
 
     game = Game.create
