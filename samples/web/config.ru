@@ -26,7 +26,7 @@ app = Rack::Builder.app do
   end
 
   map '/api' do
-    router = Menilite::Router.new(Account, Session, Game, Player, ApplicationController, GameController)
+    router = Menilite::Router.new
     run router.routes(server.settings)
   end
 end

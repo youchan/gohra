@@ -1,5 +1,5 @@
 class ApplicationController < Menilite::Controller
-  before_action(expect: ["ApplicationController#login", "Account#signup"]) do
+  before_action(exclude: ["ApplicationController#login", "Account#signup"]) do
     raise "Authorization failure" unless Session.auth(session[:session_id])
   end
 
