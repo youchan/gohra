@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/adambeynon/opal-router.git
+  remote: https://github.com/adambeynon/opal-router.git
   revision: bc8c242510794ecbb842b52423732f2ec55c2a1e
   specs:
     opal-router (0.0.1)
@@ -54,7 +54,7 @@ GEM
       opal
       paggio
     paggio (0.2.6)
-    rack (1.6.4)
+    rack (1.6.13)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
